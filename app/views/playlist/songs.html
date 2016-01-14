@@ -1,0 +1,179 @@
+<div class="page page-list" data-ng-controller="GenresCtrl as genres">
+
+    <div class="row">
+
+        <div class="divider-md"></div>
+
+        <div class="col-md-offset-4">
+            <div class="form-group logo-search" style="width: 33%">
+                <div id="the-basics">
+                    <input id="inputFindSong" {{valueBinding="sName"}} type="text" class="form-control typeahead" placeholder="Search songs" ng-enter="searchSong($event)">
+                    <span id="searchButton" class="icon glyphicon glyphicon-search" onclick="searchSong(inputFindSong.value)"></span>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+
+                <div class="row music-genres-listing">
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div id="contenido" class="row">
+
+
+    </div>
+
+</div>
+
+<script>
+    defineNames();
+    defineArtists();
+    defineTracklists();
+
+    $('#the-basics .typeahead').typeahead({
+        hint : true,
+        highlight : true,
+        minLength : 1
+    }, {
+        name : 'states',
+        displayKey : 'value',
+        source : substringMatcher(allSongsNames)
+    });
+
+    $('#songArtistDropdown .typeahead').typeahead({
+        hint : true,
+        highlight : true,
+        minLength : 1
+    }, {
+        name : 'states',
+        displayKey : 'value',
+        source : substringMatcher(allArtistsNames)
+    });
+
+    $('#tracklistDropdown .typeahead').typeahead({
+        hint : true,
+        highlight : true,
+        minLength : 1
+    }, {
+        name : 'states',
+        displayKey : 'value',
+        source : substringMatcher(allTracklistsNames)
+    });
+
+
+    //FOR ENTER KEY
+    $('#inputFindSong').keydown(function(event){
+        if(event.keyCode==13){
+            $('#searchButton').trigger('click');
+//	       alert("Enter");
+        }
+    });
+
+    //FOR CLICK
+    $(document).on("click",".tt-suggestion", function (e) {
+        if (e.type == "click") {
+//            alert($(this).text()+" Click");
+//		searchSong($(this).text());
+            $('#searchButton').trigger('click');
+        }
+    });
+</script>
+
+<script id="songsTemplate" type="text/x-handlebars-template">
+    <ul>
+        {{#each objects}}
+
+        <div class="row">
+            {{#songArtist}}
+            <img src="http://localhost:3000/imageName/{{artistName}}" width="64" height="64" class="img-thumbnail pull-left">
+            {{/songArtist}}
+            <div class="media-body col-md-8">
+                <div class="well well-lg">
+                    <h4>
+                        <a id="{{songName}}" onclick="searchSong(this.id)" style="cursor:pointer">{{songName}}
+                        </a>
+                    </h4>
+                    {{#songArtist}}
+                    <span><a href="/#/artist/{{artistName}}">
+                        {{artistName}}
+                    </a>
+                    </span>
+                    {{/songArtist}}
+                    {{#ifCond songLinks.youtubeLink.length}}
+                    <img src="/images/youtube.png" width="50" height="50" class="img-thumbnail pull-right" style="cursor: pointer" onclick="toggleYFrame({{@index}}, {{safeString songLinks.youtubeLink}});">
+                    {{/ifCond}}
+                    {{#ifCond songLinks.soundCloudLink.length}}
+                    <img src="/images/soundcloud.png" width="50" height="50" class="img-thumbnail pull-right" style="cursor: pointer" onclick="toggleSFrame({{@index}}, {{safeString songLinks.soundCloudLink}});">
+                    {{/ifCond}}
+                    <p>{{summary}}</p>
+                    <hr>
+                </div>
+                {{#ifCond songLinks.youtubeLink.length}}
+                <iframe id="youtubeIframe{{@index}}" width="100%" style="display: none" height="166" scrolling="no" frameborder="no"></iframe>
+                {{/ifCond}}
+                {{#ifCond songLinks.soundCloudLink.length}}
+                <iframe id="soundcloudIframe{{@index}}" width="100%" style="display: none" height="166" scrolling="no" frameborder="no"></iframe>
+                {{/ifCond}}
+            </div>
+        </div>
+        <hr>
+    </ul>
+    {{/each}}
+</script>
+
+<script id="matchesTemplate" type="text/x-handlebars-template">
+    <ul>
+        <h2>Next Song: </h2>
+        {{#each objects}}
+        {{#songMixs}}
+        <div id="songMatch0" class="row">
+            {{#nextSong.songArtist}}
+            <img src="http://localhost:3000/imageName/{{artistName}}" width="64" height="64" class="img-thumbnail pull-left">
+            {{/nextSong.songArtist}}
+            <div id="songMatchSearchedDetails0" class="media-body col-md-8">
+                <div id="songMatchSearchedDetailsDiv0" class="well well-lg">
+                    <h4><a id="{{nextSong.songName}}" onclick="searchSong(this.id)" style="cursor:pointer">{{nextSong.songName}}
+                    </a></h4>
+                    {{#nextSong.songArtist}}
+    <span><a href="/#/artist/{{artistName}}">
+        {{artistName}}
+    </a>
+    </span>
+                    {{/nextSong.songArtist}}
+                    {{#ifCond nextSong.songLinks.youtubeLink.length}}
+                    <img src="/images/youtube.png" width="50" height="50" class="img-thumbnail pull-right" style="cursor: pointer" onclick="toggleYFrame({{addOne @index}}, {{safeString nextSong.songLinks.youtubeLink}});">
+                    {{/ifCond}}
+                    {{#ifCond nextSong.songLinks.soundCloudLink.length}}
+                    <img src="/images/soundcloud.png" width="50" height="50" class="img-thumbnail pull-right" style="cursor: pointer" onclick="toggleSFrame({{addOne @index}}, {{safeString nextSong.songLinks.soundCloudLink}});">
+                    {{/ifCond}}
+                    {{#recommendations}}
+                    <p>{{comments}}</p>
+                    {{/recommendations}}
+                    {{#seenIn}}
+                    Seen in: <a href="/tracklistInfo?{{this.tracklistName}}">{{this.tracklistName}}</a>
+                    {{/seenIn}}
+                </div>
+                {{#ifCond nextSong.songLinks.youtubeLink.length}}
+                <iframe id="youtubeIframe{{addOne @index}}" width="100%" style="display: none" height="166" scrolling="no" frameborder="no"></iframe>
+                {{/ifCond}}
+                {{#ifCond nextSong.songLinks.soundCloudLink.length}}
+                <iframe id="soundcloudIframe{{addOne @index}}" width="100%" style="display: none" height="166" scrolling="no" frameborder="no"></iframe>
+                {{/ifCond}}
+                <hr>
+            </div>
+        </div>
+        {{/songMixs}}
+        {{/each}}
+    </ul>
+</script>

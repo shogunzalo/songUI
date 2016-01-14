@@ -46,7 +46,7 @@ angular.module("app.ui.services", []).factory("loggit", [
 
     ArtistListingObj.getArtists = function(callback){
 
-      $http.get('dist/data/artists.json').success(function(data) {
+      $http.get('http://localhost:3000/artist').success(function(data) {
 
         artists = data;
 
@@ -75,7 +75,7 @@ angular.module("app.ui.services", []).factory("loggit", [
 
     AlbumListingObj.getAlbums = function(callback){
 
-      $http.get('dist/data/albums.json').success(function(data) {
+      $http.get('http://localhost:3000/tracklists').success(function(data) {
 
         albums = data;
 
@@ -105,7 +105,7 @@ angular.module("app.ui.services", []).factory("loggit", [
 
     GenresListingObj.getGenres = function(callback){
 
-      $http.get('dist/data/genres.json').success(function(data) {
+      $http.get('http://localhost:3000/genres').success(function(data) {
 
         genres = data;
 
@@ -119,7 +119,67 @@ angular.module("app.ui.services", []).factory("loggit", [
     return GenresListingObj;
 
 
-  }).factory("ArtistSrv",
+  }).factory("TracklistSrv",
+    function($http) {
+
+      /**************************
+       Gets artists with all songs from the "Server"
+       **************************/
+
+      var TracklistObj = {},
+          artists = [];
+
+      /**************************
+       Get data from the .json files (Replace by your own webserver)
+       **************************/
+
+      TracklistObj.getTracklistSongs = function(artistId, callback){
+
+        $http.get('http://localhost:3000/tracklistByArtist/' + artistId).success(function(data) {
+
+          tracklists = data;
+
+          TracklistObj.tracklists = tracklists;
+          callback(data);
+
+        });
+
+      };
+
+      TracklistObj.getTracklist = function(artistId, callback) {
+
+        //Title is the artist name
+        var artistId;
+
+        $http.get('http://localhost:3000/artistName/' + artistId).success(function(data) {
+
+          artistId = data[0]._id;
+
+          TracklistObj.getTracklistSongs(artistId, function(data){
+
+            _.map(TracklistObj.tracklists, function(tracklistsSongs){
+
+              return callback(tracklistsSongs);
+
+            });
+
+          });
+
+        });
+
+      };
+
+      TracklistObj.getArtist = function(title, callback) {
+
+        $http.get('http://localhost:3000/artistById/' + title).success(function(data) {
+          return callback(data);
+        });
+
+      };
+
+      return TracklistObj;
+
+    }).factory("ArtistSrv",
   function($http) {
 
     /**************************
@@ -133,9 +193,11 @@ angular.module("app.ui.services", []).factory("loggit", [
      Get data from the .json files (Replace by your own webserver)
      **************************/
 
-    PlayListObj.getSongs = function(callback){
+    PlayListObj.getSongs = function(artistId, callback){
 
-      $http.get('dist/data/artistsMusic.json').success(function(data) {
+      console.log(artistId);
+
+      $http.get('http://localhost:3000/artistSongs/' + artistId).success(function(data) {
 
         artists = data;
 
@@ -146,15 +208,24 @@ angular.module("app.ui.services", []).factory("loggit", [
 
     };
 
-    PlayListObj.getArtist = function(title,callback) {
+    PlayListObj.getArtist = function(title, callback) {
 
-      PlayListObj.getSongs(function(data){
+      //Title is the artist name
+      var artistIdVar;
 
-        _.map(PlayListObj.artists, function(artistSongs){
+      $http.get('http://localhost:3000/artistName/' + title).success(function(data) {
 
-          if(artistSongs.url_name == title){
-            return callback(artistSongs);
-          }
+        artistIdVar = data[0]._id;
+
+        PlayListObj.getSongs(artistIdVar, function(data){
+
+          _.map(PlayListObj.artists, function(artistSongs){
+
+            if(artistSongs.songArtist == title){
+              return callback(artistSongs);
+            }
+          });
+
         });
 
       });
@@ -163,7 +234,58 @@ angular.module("app.ui.services", []).factory("loggit", [
 
     return PlayListObj;
 
-  })
+  }).factory("SongSrv",
+    function($http) {
+
+      /**************************
+       Gets artists with all songs from the "Server"
+       **************************/
+
+      var SongObj = {};
+
+      /**************************
+       Get data from the .json files (Replace by your own webserver)
+       **************************/
+
+      PlayListObj.getSongs = function(songName, callback){
+
+        console.log(artistId);
+
+        $http.get('http://localhost:3000/songName/' + songName).success(function(data) {
+
+            SongObj = data;
+
+        });
+
+      };
+
+      //PlayListObj.getArtist = function(title, callback) {
+      //
+      //  //Title is the artist name
+      //  var artistIdVar;
+      //
+      //  $http.get('http://localhost:3000/artistName/' + title).success(function(data) {
+      //
+      //    artistIdVar = data[0]._id;
+      //
+      //    PlayListObj.getSongs(artistIdVar, function(data){
+      //
+      //      _.map(PlayListObj.artists, function(artistSongs){
+      //
+      //        if(artistSongs.songArtist == title){
+      //          return callback(artistSongs);
+      //        }
+      //      });
+      //
+      //    });
+      //
+      //  });
+      //
+      //};
+
+      return SongObj;
+
+    })
   .factory("PlayListSrv",
   function() {
 
@@ -282,8 +404,6 @@ angular.module("app.ui.services", []).factory("loggit", [
             if(songOnList.url == song.url){
 
               playlist.songs = _.without(playlist.songs,songOnList);
-
-              console.log(PlayListObj.playlists);
 
               PlayListObj.update(PlayListObj.playlists);
 

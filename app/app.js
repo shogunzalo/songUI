@@ -98,6 +98,8 @@ var app = angular.module("app", ["ngRoute", "ngAnimate","app.config", "ui.bootst
                 templateUrl: "app/views/pages/blank.html"
             }).when("/pages/contact", {
                 templateUrl: "app/views/pages/contact.html"
+            }).when("/songs", {
+                templateUrl: "app/views/playlist/songs.html"
             }).otherwise({
                 redirectTo: "/404"
             });

@@ -667,6 +667,15 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
         }
       };
 
+      this.seekPercentage = function ($event) {
+        var percentage = ($event.offsetX / $event.target.offsetWidth);
+        if (percentage <= 1) {
+          return percentage;
+        } else {
+          return 0;
+        }
+      };
+
       this.createNewPlaylist = function(song){
 
         CreateNewPlaylistSrv.openCreateModal(song);
@@ -695,7 +704,7 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
 
 
     }]).controller('GenresCtrl',['$scope','GenresListingSrv',
-    function($scope,GenresListingSrv){
+      function($scope,GenresListingSrv){
 
       $scope.GenresSrv = GenresListingSrv;
 
@@ -705,13 +714,13 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
       });
 
 
-    }]).controller('ArtistCtrl', ['$scope','$routeParams', 'ArtistSrv','PlayListSrv', 'navigationMenuService','loggit',
-    function ($scope,$routeParams, ArtistSrv,PlayListSrv, navigationMenuService,loggit) {
+    }]).controller('ArtistCtrl', ['$scope','$routeParams', 'ArtistSrv','TracklistSrv','PlayListSrv', 'navigationMenuService','loggit',
+    function ($scope,$routeParams, ArtistSrv, TracklistSrv, PlayListSrv, navigationMenuService,loggit) {
 
       this.ArtistSrv = ArtistSrv;
+      this.TracklistSrv = TracklistSrv;
       var artistPlaylistVar = [],
         artistPlaylistAlbums = [];
-
 
       this.AlbumList = true;
       this.FullList = false;
@@ -729,31 +738,27 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
 
       ArtistSrv.getArtist($routeParams.title, function (response) {
 
-        if(typeof response.albums != "undefined"){
+        //if(typeof response.albums != "undefined"){
+        console.log(response);
 
-          _.map(response.albums, function (album) {
+        if(true){
 
-            artistPlaylistAlbums.push({
-              album_name: album.album_name,
-              album_image: album.album_image,
-              album_release: album.album_release,
-              songs:[]
-            });
+          artistPlaylistAlbums.push({
+                songs:[]
+              });
 
-            _.map(album.songs, function (song) {
+            _.map(response.songs, function (song) {
 
-              /*Put them all together in one single list (for adding to new playlists for example)*/
-
-              var parseTitle = song.displayName.match(/(.*?)\s?-\s?(.*)?$/);
+              var parseTitle = song.songName.match(/(.*?)\s?-\s?(.*)?$/);
 
               artistPlaylistVar.push({
                 image: song.image,
                 src: song.url,
                 url: song.url,
                 type: song.type,
-                artist: parseTitle[1],
-                title: parseTitle[2],
-                displayName:song.displayName
+                artist: response.songArtist,
+                title: song.songName,
+                displayName:song.songName
               });
 
               /*Put songs also in this artist ordered by album*/
@@ -763,15 +768,15 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
                 src: song.url,
                 url: song.url,
                 type: song.type,
-                artist: parseTitle[1],
-                title: parseTitle[2],
-                displayName:song.displayName
+                artist: response.songArtist,
+                title: song.songName,
+                displayName:song.songName
               });
             });
 
-          });
+          //});
 
-          $scope.artistName = response.name;
+          $scope.artistName = response.songArtist;
           $scope.artistImage = response.image;
           $scope.artistBanner = response.banner;
           $scope.artistGenre = response.genre;
@@ -781,11 +786,49 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
 
       });
 
+      var artistTracklistVar = [];
+      var artistTracklistNameVar = [];
+
+      TracklistSrv.getTracklist($routeParams.title, function (response) {
+
+        artistTracklistNameVar.push(response.tracklistName);
+
+        _.map(response.tracklistTracks, function (song) {
+
+          song = song.track;
+
+          var parseTitle = song.songName.match(/(.*?)\s?-\s?(.*)?$/);
+          var artistVar;
+
+          TracklistSrv.getArtist(song.songArtist[0], function(artist){
+            artistVar = artist.artistName;
+            artistTracklistVar.push({
+              image: song.image,
+              src: song.url,
+              url: song.url,
+              type: song.type,
+              artist: artistVar,
+              title: song.songName,
+              displayName: song.songName
+            });
+
+          });
+
+        });
+
+      });
+
+      $scope.artistTracklistName = artistTracklistNameVar;
+
+      $scope.artistTracklist = artistTracklistVar;
+
       $scope.artistPlaylist = artistPlaylistVar;
       $scope.artistPlaylistAlbums = artistPlaylistAlbums;
 
 
       this.addSongs = function (playlist, callback) {
+
+        console.log(playlist);
 
         _.each(artistPlaylistVar, function (audioElement) {
           playlist.push(angular.copy(audioElement));
@@ -937,4 +980,32 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
         $modalInstance.dismiss('cancel');
       };
     }
-  ]);
+  ]).controller("SongCtrl", ["$scope", "$modalInstance", 'SongSrv', 'songName','loggit',
+      function ($scope, $modalInstance, SongSrv, songName, loggit) {
+
+        //$scope.playlistName = playlistName;
+        $scope.song = song;
+
+        $scope.SongSrv = SongSrv;
+
+        $scope.searchSong = SongSrv.getSongs(function(data){
+          // no need to read data because its binded to $scope.GenresSrv
+          // You can however process something only after the data comes back
+        });
+
+        $scope.ok = function () {
+
+          if($scope.playlistName !== ""){
+            $modalInstance.close($scope);
+          }
+          else {
+            $modalInstance.dismiss('cancel');
+            loggit.logError("Error! Could not create a playlist with no name..");
+          }
+        };
+
+        $scope.cancel = function () {
+          $modalInstance.dismiss('cancel');
+        };
+      }
+    ]);

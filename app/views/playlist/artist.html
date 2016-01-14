@@ -1,10 +1,13 @@
 <div data-ng-controller="ArtistCtrl as artist">
 
-  <div class="artist-banner" data-ng-show="artistBanner" style="background-image:url({{artistBanner}});">
-    <div class="artist-inner">
+  <!--<div class="artist-banner" data-ng-show="artistBanner" style="background-image:url({{artistBanner}});">-->
+  <div class="artist-banner" data-ng-show="true" style="background-image:url(http://localhost:3000/imageName/{{artistName}});">
+  <div class="artist-inner">
 
-      <div class="artist-img" data-ng-show="artistImage">
-        <img ng-src="{{artistImage}}" class="img-circle img-polaroid"/>
+      <div class="artist-img" data-ng-show="true">
+        <!--<img ng-src="{{artistImage}}" class="img-circle img-polaroid"/>-->
+        <img ng-src="http://localhost:3000/imageName/{{artistName}}" class="img-circle img-polaroid"/>
+
       </div>
 
       <h3>
@@ -96,10 +99,12 @@
 
               <div class="music-listing__songs albumlist" data-ng-show="artist.AlbumList">
 
-                <div class="album-wrapper" ng-repeat="album in artistPlaylistAlbums | filter:searchText">
+                <div class="album-wrapper">
+                <!--<div class="album-wrapper" ng-repeat="tracklist in artistTracklist | filter:searchText">-->
+
 
                   <div class="album_image">
-                    <img ng-src="{{album.album_image}}" alt="album image"/>
+                    <img ng-src="http://localhost:3000/imageName/{{artistName}}" alt="album image"/>
                   </div>
 
                   <div class="album_name">
@@ -107,15 +112,15 @@
                       {{album.album_release}}
                     </p>
                     <h4>
-                      {{album.album_name}}
+                      {{artistTracklistName}}
                     </h4>
                     <div>
-                      <a class="btn btn-bordered btn-bordered-primary">Save this album</a>
+                      <a class="btn btn-bordered btn-bordered-primary">Save this tracklist</a>
                     </div>
                   </div>
 
 
-                  <div class="music-listing__row" ng-repeat="song in album.songs | filter:searchText">
+                  <div class="music-listing__row" ng-repeat="song in artistTracklist | filter:searchText">
 
                     <div class="music-listing__number">
                       {{ $index+1 }}
@@ -153,7 +158,7 @@
                       </div>
 
                       <div class="music-listing__artist-name">
-                        {{ song.artist }}
+                        <a href="/index.html#/artist/{{song.artist}}">{{ song.artist }}</a>
                       </div>
 
                       <div class="music-listing__song-name">
@@ -203,11 +208,11 @@
                   <div class="music-listing__name">
 
                     <div class="music-listing__thumbnail">
-                      <img ng-src="{{song.image}}" alt="song__image"/>
+                      <img ng-src="http://localhost:3000/imageName/{{artistName}}" alt="song__image"/>
                     </div>
 
                     <div class="music-listing__artist-name">
-                      {{ song.artist }}
+                      <a href="/index.html#/artist/{{song.artist}}">{{ song.artist }}</a>
                     </div>
                     <div class="music-listing__song-name">
                       {{ song.title }}
@@ -347,4 +352,4 @@
 
   </div>
 
-</div>
+</>

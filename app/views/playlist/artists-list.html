@@ -27,9 +27,10 @@
 
 
               <div class="list-item__image">
-                <img ng-src="{{artistItem.image}}"/>
+                <!--<img ng-src="{{artistItem.image}}"/>-->
+                <img ng-src="http://localhost:3000/imageName/{{artistItem.artistName}}"/>
                 <div class="list-item__play">
-                  <a class="list-item__play-button" ng-href="#/artist/{{artistItem.url_name}}">
+                  <a class="list-item__play-button" ng-href="#/artist/{{artistItem.artistName}}">
                     <i class="fa fa-2x fa-stumbleupon">
 
                     </i>
@@ -39,7 +40,7 @@
 
               <div class="list-item__name">
                 <h5>
-                  {{artistItem.name}}
+                  {{artistItem.artistName}}
                 </h5>
               </div>
 

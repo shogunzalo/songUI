@@ -5868,10 +5868,10 @@ body {
   background-color: white; }
 
 #content.fixed {
-  overflow: hidden;
+  overflow: auto;
   height: 100%; }
   #content.fixed .page-full, #content.fixed .page {
-    overflow: hidden;
+    overflow: auto;
     height: 100%; }
   #content.fixed .inner-wrapper {
     position: relative;

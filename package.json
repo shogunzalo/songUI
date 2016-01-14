@@ -20,5 +20,8 @@
     "karma-jasmine": "~0.1.0",
     "karma-ng-html2js-preprocessor": "~0.1.0",
     "karma-phantomjs-launcher": "~0.1.4"
+  },
+  "dependencies": {
+    "http-server": "^0.8.5"
   }
 }

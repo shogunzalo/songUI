@@ -41,9 +41,10 @@
                       <div class="list-item__wrap">
 
                         <div class="list-item__image">
-                          <img ng-src="{{artistItem.image}}"/>
+                          <!--<img ng-src="{{artistItem.image}}"/>-->
+                          <img ng-src="http://localhost:3000/imageName/{{artistItem.artistName}}"/>
                           <div class="list-item__play">
-                            <a class="list-item__play-button" ng-href="#/artist/{{artistItem.url_name}}">
+                            <a class="list-item__play-button" ng-href="#/artist/{{artistItem.artistName}}">
                               <i class="fa fa-2x fa-stumbleupon">
 
                               </i>
@@ -53,7 +54,7 @@
 
                         <div class="list-item__name">
                           <h6>
-                            {{artistItem.name}}
+                            {{artistItem.artistName}}
                           </h6>
                         </div>
 
@@ -78,14 +79,14 @@
                 <div data-ng-controller="AlbumsCtrl as albums">
                   <div class="row music-covers-listing minified">
 
-                    <div data-ng-repeat="album in AlbumsSrv.albums" class="col-md-3">
+                    <div data-ng-repeat="tracklist in AlbumsSrv.albums" class="col-md-3">
 
                       <div class="list-item__wrap">
 
                         <div class="list-item__image">
-                          <img ng-src="{{album.image}}"/>
+                          <img ng-src="http://localhost:3000/imageName/{{tracklist.tracklistArtist[0].artistName}}"/>
                           <div class="list-item__play">
-                            <a class="list-item__play-button" ng-href="#/artist/{{album.url_name}}">
+                            <a class="list-item__play-button" ng-href="#/artist/{{tracklist.tracklistArtist[0].artistName}}">
                               <i class="fa fa-2x fa-stumbleupon">
 
                               </i>
@@ -95,10 +96,10 @@
 
                         <div class="list-item__name">
                           <h6 class="color-primary">
-                            {{album.artist}}
+                            {{tracklist.tracklistArtist[0].artistName}}
                           </h6>
                           <h6>
-                            {{album.name}}
+                            {{tracklist.tracklistName}}
                           </h6>
                         </div>
 
