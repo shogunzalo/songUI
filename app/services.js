@@ -159,6 +159,7 @@ angular.module("app.ui.services", []).factory("loggit", [
 
             _.map(TracklistObj.tracklists, function(tracklistsSongs){
 
+              console.log(tracklistsSongs);
               return callback(tracklistsSongs);
 
             });
@@ -194,8 +195,6 @@ angular.module("app.ui.services", []).factory("loggit", [
      **************************/
 
     PlayListObj.getSongs = function(artistId, callback){
-
-      console.log(artistId);
 
       $http.get('http://localhost:3000/artistSongs/' + artistId).success(function(data) {
 
@@ -248,8 +247,6 @@ angular.module("app.ui.services", []).factory("loggit", [
        **************************/
 
       PlayListObj.getSongs = function(songName, callback){
-
-        console.log(artistId);
 
         $http.get('http://localhost:3000/songName/' + songName).success(function(data) {
 

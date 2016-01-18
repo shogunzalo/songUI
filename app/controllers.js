@@ -703,15 +703,19 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
       });
 
 
-    }]).controller('GenresCtrl',['$scope','GenresListingSrv',
-      function($scope,GenresListingSrv){
+    }]).controller('GenresCtrl',['$scope', '$routeParams',
+      function($scope, $routeParams){
 
-      $scope.GenresSrv = GenresListingSrv;
+      //From songApp.js
+      searchSong($routeParams);
+      console.log($routeParams);
 
-      GenresListingSrv.getGenres(function(data){
-        // no need to read data because its binded to $scope.GenresSrv
-        // You can however process something only after the data comes back
-      });
+      //$scope.GenresSrv = GenresListingSrv;
+      //
+      //GenresListingSrv.getGenres(function(data){
+      //  // no need to read data because its binded to $scope.GenresSrv
+      //  // You can however process something only after the data comes back
+      //});
 
 
     }]).controller('ArtistCtrl', ['$scope','$routeParams', 'ArtistSrv','TracklistSrv','PlayListSrv', 'navigationMenuService','loggit',
@@ -721,9 +725,15 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
       this.TracklistSrv = TracklistSrv;
       var artistPlaylistVar = [],
         artistPlaylistAlbums = [];
+      console.log($routeParams.tracklist);
+      if($routeParams.tracklist == "true"){
+          this.AlbumList = true;
+          this.FullList = false;
+      }else{
+          this.AlbumList = false;
+          this.FullList = true;
+      }
 
-      this.AlbumList = true;
-      this.FullList = false;
       this.following = "Follow artist";
       this.following_class = "btn-default";
 
@@ -788,35 +798,41 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
 
       var artistTracklistVar = [];
       var artistTracklistNameVar = [];
+      var trackNumberVar;
+      var songIndexVar;
 
-      TracklistSrv.getTracklist($routeParams.title, function (response) {
+        TracklistSrv.getTracklist($routeParams.title, function (response) {
 
         artistTracklistNameVar.push(response.tracklistName);
 
         _.map(response.tracklistTracks, function (song) {
 
-          song = song.track;
-
-          var parseTitle = song.songName.match(/(.*?)\s?-\s?(.*)?$/);
+          //var indexVar = indexVar;
+          var songVar = song.track;
+          //var parseTitle = songVar.songName.match(/(.*?)\s?-\s?(.*)?$/);
           var artistVar;
 
-          TracklistSrv.getArtist(song.songArtist[0], function(artist){
+          TracklistSrv.getArtist(songVar.songArtist[0], function(artist){
             artistVar = artist.artistName;
+            trackNumberVar = song.trackNumber;
+            songIndexVar = song.songIndex;
             artistTracklistVar.push({
-              image: song.image,
-              src: song.url,
-              url: song.url,
-              type: song.type,
+              songIndex: parseInt(songIndexVar),
+              trackNumber: trackNumberVar,
+              image: songVar.image,
+              src: songVar.url,
+              url: songVar.url,
+              type: songVar.type,
               artist: artistVar,
-              title: song.songName,
-              displayName: song.songName
-            });
+              title: songVar.songName,
+              displayName: songVar.songName
 
+            });
           });
 
         });
 
-      });
+        });
 
       $scope.artistTracklistName = artistTracklistNameVar;
 
@@ -865,6 +881,7 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
       };
 
       this.toggleAlbumsList = function(){
+        console.log("hola");
         this.AlbumList = true;
         this.FullList = false;
       };

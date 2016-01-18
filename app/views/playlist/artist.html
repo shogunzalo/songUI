@@ -83,15 +83,17 @@
                 </div>
 
                 <div class="music-listing__switch">
-                  <a class="btn btn-switch" href="javascript:;" data-ng-click="artist.toggleAlbumsList();" tooltip-placement="bottom" tooltip="View Albums" tooltip-append-to-body="true">
-                    <i class="fa fa-list">
 
-                    </i>
-                  </a>
                   <a class="btn btn-switch" href="javascript:;" data-ng-click="artist.toggleFullList();" tooltip-placement="bottom" tooltip="View all songs" tooltip-append-to-body="true">
                     <i class="fa fa-sliders">
 
                     </i>
+                  </a>
+
+                  <a class="btn btn-switch" href="javascript:;" data-ng-click="artist.toggleAlbumsList();" tooltip-placement="bottom" tooltip="View Albums" tooltip-append-to-body="true">
+                      <i class="fa fa-list">
+
+                      </i>
                   </a>
                 </div>
 
@@ -119,11 +121,10 @@
                     </div>
                   </div>
 
-
-                  <div class="music-listing__row" ng-repeat="song in artistTracklist | filter:searchText">
+                  <div class="music-listing__row" ng-repeat="song in artistTracklist  | orderBy: 'songIndex' | filter:searchText">
 
                     <div class="music-listing__number">
-                      {{ $index+1 }}
+                      {{ song.trackNumber }}
                       <div class="play-button">
                         <button ng-click="generalPlaylist.addSong(song)" class="btn btn-primary"><i class="fa fa-play-circle"></i></button>
                       </div>
@@ -158,7 +159,7 @@
                       </div>
 
                       <div class="music-listing__artist-name">
-                        <a href="/index.html#/artist/{{song.artist}}">{{ song.artist }}</a>
+                        <a href="#/artist/{{song.artist}}">{{ song.artist }}</a>
                       </div>
 
                       <div class="music-listing__song-name">
@@ -212,10 +213,10 @@
                     </div>
 
                     <div class="music-listing__artist-name">
-                      <a href="/index.html#/artist/{{song.artist}}">{{ song.artist }}</a>
+                      <a href="#/artist/{{song.artist}}">{{ song.artist }}</a>
                     </div>
                     <div class="music-listing__song-name">
-                      {{ song.title }}
+                        <a href="#/songs?{{ song.title }}">{{ song.title }}</a>
                     </div>
 
                   </div>
