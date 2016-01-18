@@ -163,7 +163,7 @@
                       </div>
 
                       <div class="music-listing__song-name">
-                        {{ song.title }}
+                          <a href="#/songs?song={{ song.title | encodeURIComponent}}">{{ song.title }}</a>
                       </div>
 
                     </div>
@@ -216,7 +216,7 @@
                       <a href="#/artist/{{song.artist}}">{{ song.artist }}</a>
                     </div>
                     <div class="music-listing__song-name">
-                        <a href="#/songs?{{ song.title }}">{{ song.title }}</a>
+                        <a href="#/songs?song={{ song.title | encodeURIComponent}}">{{ song.title }}</a>
                     </div>
 
                   </div>

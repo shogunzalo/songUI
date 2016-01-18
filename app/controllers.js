@@ -707,7 +707,7 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
       function($scope, $routeParams){
 
       //From songApp.js
-      searchSong($routeParams);
+      searchSong($routeParams.song);
       console.log($routeParams);
 
       //$scope.GenresSrv = GenresListingSrv;

@@ -104,7 +104,9 @@ var app = angular.module("app", ["ngRoute", "ngAnimate","app.config", "ui.bootst
                 redirectTo: "/404"
             });
     }
-]);
+]).filter('encodeURIComponent', function() {
+    return window.encodeURIComponent;
+});
 
 
 /**************************
