@@ -37,18 +37,30 @@
 </div>
 
 <script>
-    defineNames();
-    defineArtists();
-    defineTracklists();
+
+    var dataSource = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('songName', 'songArtist'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        local: allSongsNames
+    });
+
+    dataSource.initialize();
 
     $('#the-basics .typeahead').typeahead({
         hint : true,
         highlight : true,
         minLength : 1
     }, {
-        name : 'states',
-        displayKey : 'value',
-        source : substringMatcher(allSongsNames)
+        name : 'songs',
+        display: function(item){ return item.songName },
+        source : dataSource.ttAdapter(),
+        templates: {
+            empty: [
+                '<div class="empty">No Matches Found</div>'].join('\n'),
+            suggestion: function (data) {
+                return '<div>' + data.songName + '–' + data.songArtist + '</div>'
+            }
+        }
     });
 
     $('#songArtistDropdown .typeahead').typeahead({

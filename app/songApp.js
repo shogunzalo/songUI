@@ -115,29 +115,33 @@ var allArtistsNames = new Array();
 var allTracklistsNames = new Array();
 var allButExcluded = new Array();
 
+function defineNames() {
+    $.ajax({
+        url : "http://localhost:3000/song/"
+    }).then(function(data) {
+        // for(i = 0; i < data.length; i++){
+        // allSongNames[i] = data[i].songOne;
+        // }
+        var seen = {};
+        // allSongsNames = []; //TODO:NEED TO SOLVE THIS AS IF WE KEEP THE
+        // SOURCE AND THE ALLSONGS VAR WE ARE USING THE DOUBLE OF SPACE
+        var len = data.length;
+        var j = 0;
+        for (var i = 0; i < len; i++) {
+            var item = {};
+            item.songName = data[i].songName;
+            item.songArtist = data[i].songArtist[0].artistName;
+            //var item = data[i].songName;
+            if (seen[item.songName] !== 1) {
+                seen[item.songName] = 1;
+                allSongsNames[j++] = item;
+            }
+        }
+    });
+}
+
 // Testing purposes... Names need to be retrieved from Song collection AND/OR in
 // another way to avoid the for loop
-function defineNames() {
-	$.ajax({
-		url : "http://localhost:3000/song/"
-	}).then(function(data) {
-		// for(i = 0; i < data.length; i++){
-		// allSongNames[i] = data[i].songOne;
-		// }
-		var seen = {};
-		// allSongsNames = []; //TODO:NEED TO SOLVE THIS AS IF WE KEEP THE
-		// SOURCE AND THE ALLSONGS VAR WE ARE USING THE DOUBLE OF SPACE
-		var len = data.length;
-		var j = 0;
-		for (var i = 0; i < len; i++) {
-			var item = data[i].songName;
-			if (seen[item] !== 1) {
-				seen[item] = 1;
-				allSongsNames[j++] = item;
-			}
-		}
-	});
-}
 
 function defineArtists() {
 	$.ajax({
