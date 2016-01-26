@@ -638,7 +638,8 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
       this.userPlaylists = PlayListSrv.playlists;
 
       this.addSong = function (audioElement) {
-        this.audioPlaylist.push(angular.copy(audioElement));
+        //this.audioPlaylist.push(angular.copy(audioElement));
+        console.log("Hola");
       };
 
       this.removeSong = function (index) {
@@ -811,6 +812,8 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
           var songVar = song.track;
           //var parseTitle = songVar.songName.match(/(.*?)\s?-\s?(.*)?$/);
           var artistVar;
+          console.log(songVar);
+          console.log(song);
 
           TracklistSrv.getArtist(songVar.songArtist[0], function(artist){
             artistVar = artist.artistName;

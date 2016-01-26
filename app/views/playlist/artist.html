@@ -1,7 +1,7 @@
 <div data-ng-controller="ArtistCtrl as artist">
 
   <!--<div class="artist-banner" data-ng-show="artistBanner" style="background-image:url({{artistBanner}});">-->
-  <div class="artist-banner" data-ng-show="true" style="background-image:url('http://localhost:3000/imageName/{{artistName}}');">
+  <div class="artist-banner" data-ng-show="true" style="background-image:url(http://localhost:3000/imageName/{{artistName}});">
   <div class="artist-inner">
 
       <div class="artist-img" data-ng-show="true">
@@ -126,7 +126,7 @@
                     <div class="music-listing__number">
                       {{ song.trackNumber }}
                       <div class="play-button">
-                        <button ng-click="generalPlaylist.addSong(song)" class="btn btn-primary"><i class="fa fa-play-circle"></i></button>
+                        <button ng-click="generalPlaylist.addSong()" class="btn btn-primary"><i class="fa fa-play-circle"></i></button>
                       </div>
                     </div>
 

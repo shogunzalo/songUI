@@ -169,7 +169,8 @@
                     <img src="/images/youtube.png" width="50" height="50" class="img-thumbnail pull-right" style="cursor: pointer" onclick="toggleYFrame({{addOne @index}}, {{safeString nextSong.songLinks.youtubeLink}});">
                     {{/ifCond}}
                     {{#ifCond nextSong.songLinks.soundCloudLink.length}}
-                    <img src="/images/soundcloud.png" width="50" height="50" class="img-thumbnail pull-right" style="cursor: pointer" onclick="toggleSFrame({{addOne @index}}, {{safeString nextSong.songLinks.soundCloudLink}});">
+                    <!--<img src="/images/soundcloud.png" width="50" height="50" class="img-thumbnail pull-right" style="cursor: pointer" onclick="toggleSFrame({{addOne @index}}, {{safeString nextSong.songLinks.soundCloudLink}});">-->
+                    <img src="/images/soundcloud.png" width="50" height="50" class="img-thumbnail pull-right" style="cursor: pointer" onclick="playSong({{soundCloudSafeString nextSong.songLinks.soundCloudLink}});">
                     {{/ifCond}}
                     {{#recommendations}}
                     <p>{{comments}}</p>
