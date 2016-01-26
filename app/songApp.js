@@ -29,6 +29,15 @@ Handlebars.registerHelper('safeString', function(object) {
     );
 });
 
+Handlebars.registerHelper('soundCloudSafeString', function(object) {
+
+    var objAux = object.substring(object.indexOf("https://api."), object.indexOf("&auto_play"))
+    console.log(objAux);
+    return new Handlebars.SafeString(
+        "'"+objAux+"'"
+    );
+});
+
 function toggleSFrame(index, url){
     var idS = "soundcloudIframe" + index;
     if($("#" + idS).attr("src") != url){

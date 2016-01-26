@@ -132,7 +132,10 @@
 <script type="text/javascript" src="scripts/angular-dragdrop.js"></script>
 <script type="text/javascript" src="scripts/extras.js"></script>
 <script type="text/javascript" src="app/app.js"></script>
-<script type="text/javascript" src="app/jquery.min.js"></script>
+<!--<script type="text/javascript" src="app/jquery.min.js"></script>-->
+<script src="http://code.jquery.com/jquery-1.7.2.js"></script>
+<script src="//connect.soundcloud.com/sdk.js"></script>
+<script type="text/javascript" src="app/stratus.js"></script>
 <script type="text/javascript" src="app/handlebars.js"></script>
 <script type="text/javascript" src="app/typeahead.js"></script>
 <script type="text/javascript" src="app/app.js"></script>
@@ -142,7 +145,23 @@
 <script type="text/javascript" src="app/services.js"></script>
 <script type="text/javascript" src="app/songApp.js"></script>
 
+<a id="test1" class="stratus" href="" style="visibility: hidden"></a>
+
 <script>
+    SC.initialize({
+        client_id: "1cbeea56d857430caccee966682cf238"
+    });
+
+    $.stratus({
+        links: 'https://api.soundcloud.com/tracks/183406755',
+        env: 'development'
+    });
+
+    function playSong(trackToStream){
+        $("a#test1").attr("href", trackToStream);
+        $("a#test1").trigger("click");
+    }
+
     <!--Ugly workaround to define names at the very beginning-->
     defineNames();
     defineArtists();

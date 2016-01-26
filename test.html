@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script data-require="jquery" data-semver="1.7.1" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="//connect.soundcloud.com/sdk.js"></script>
+    <script type="text/javascript" src="app/stratus.js"></script>
+</head>
+<body>
+    <a id="test1" href="http://soundcloud.com/zedsdead/zeds-dead-twin-shadow-lost-you-feat-dangelo-lacy" class="stratus">Zeds Dead - Lost You</a>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            SC.initialize({
+                client_id: "1cbeea56d857430caccee966682cf238"
+            });
+            $.stratus({
+                links: 'https://api.soundcloud.com/tracks/183406755',
+                env: "development"
+            });
+        });
+    </script>
+</body>
+</html>

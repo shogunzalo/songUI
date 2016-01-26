@@ -31,10 +31,11 @@
 
     <div id="contenido" class="row">
 
-
     </div>
 
 </div>
+
+<!--<a id="test1" href="https://soundcloud.com/zedsdead/zeds-dead-twin-shadow-lost-you-feat-dangelo-lacy" class="stratus">Zeds Dead - Lost You</a>-->
 
 <script>
 
@@ -126,7 +127,8 @@
                     <img src="/images/youtube.png" width="50" height="50" class="img-thumbnail pull-right" style="cursor: pointer" onclick="toggleYFrame({{@index}}, {{safeString songLinks.youtubeLink}});">
                     {{/ifCond}}
                     {{#ifCond songLinks.soundCloudLink.length}}
-                    <img src="/images/soundcloud.png" width="50" height="50" class="img-thumbnail pull-right" style="cursor: pointer" onclick="toggleSFrame({{@index}}, {{safeString songLinks.soundCloudLink}});">
+                    <!--<img src="/images/soundcloud.png" width="50" height="50" class="img-thumbnail pull-right" style="cursor: pointer" onclick="toggleSFrame({{@index}}, {{safeString songLinks.soundCloudLink}});">-->
+                    <img src="/images/soundcloud.png" width="50" height="50" class="img-thumbnail pull-right" style="cursor: pointer" onclick="playSong({{soundCloudSafeString songLinks.soundCloudLink}});">
                     {{/ifCond}}
                     <p>{{summary}}</p>
                     <hr>

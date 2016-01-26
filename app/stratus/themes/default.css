@@ -1,0 +1,18 @@
+#stratus{color:#8c8c8c;}
+#stratus #drawer,#stratus #player{background:#f5f5f5;border-color:#e5e5e5}
+#stratus #drawer #artwork{-webkit-box-shadow:inset -5px 0 5px -5px rgba(0,0,0,0.15);-moz-box-shadow:inset -5px 0 5px -5px rgba(0,0,0,0.15);box-shadow:inset -5px 0 5px -5px rgba(0,0,0,0.15)}
+#stratus #drawer ul#tracks li{color:#363636}
+#stratus #drawer ul#tracks li:nth-child(2n){background:#efefef}
+#stratus #drawer ul#tracks li:hover{background:#fff}
+#stratus #drawer ul#tracks li.current{color:#fff}
+#stratus #player{text-shadow:0 1px 0 rgba(255,255,255,0.80);}
+#stratus #player .prev,#stratus #player .next,#stratus #player .play,#stratus #player .pause,#stratus #player ul#stats li span,#stratus #player ul#buttons li > *,#stratus #player .close,#stratus #player #share{background-image:url("/resources/stratus/images/sprites.png")}
+#stratus #player a{color:#363636}
+#stratus #player #time{background:#2d2d2d;}
+#stratus #player #time:hover{background:#626262}
+#stratus #player .track,#stratus #player #share,#stratus #player #comment{background-color:#f5f5f5;border-color:#e5e5e5;-webkit-box-shadow:inset 1px 0 #fff;-moz-box-shadow:inset 1px 0 #fff;box-shadow:inset 1px 0 #fff}
+#stratus #player ul#stats li,#stratus #player ul#buttons li{border-color:#e5e5e5;}
+#stratus #player ul#stats li.button,#stratus #player ul#buttons li.button{background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, rgba(255,255,255,0.00)));background:-webkit-linear-gradient(top, #fff 0%, rgba(255,255,255,0.00) 100%);background:-moz-linear-gradient(top, #fff 0%, rgba(255,255,255,0.00) 100%);background:linear-gradient(top, #fff 0%, rgba(255,255,255,0.00) 100%)}
+#stratus #player ul#stats li.share span,#stratus #player ul#buttons li.share span{-webkit-box-shadow:inset 1px 0 #fff;-moz-box-shadow:inset 1px 0 #fff;box-shadow:inset 1px 0 #fff}
+#stratus #player #share ul#social a{background:url("/app/stratus/images/social.png")}
+#stratus #player #share #embed input{border-color:#e5e5e5}
