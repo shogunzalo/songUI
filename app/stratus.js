@@ -7,7 +7,7 @@
     };
     $.stratus = function(settings) {
         var root_url, src;
-        root_url = settings.env === 'development' ? 'http://localhost' : 'http://www.stratus.sc';
+        root_url = settings.env === 'development' ? 'http://localhost' : 'http://www.whomixed.com';
         $('head').append("<link rel='stylesheet' href='" + root_url + "/app/stratus/css/stratus.css' type='text/css'/>");
         if (settings.align === 'top') {
             $('head').append("<style>#stratus{ top: 0; }</style>");
