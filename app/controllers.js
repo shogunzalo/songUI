@@ -639,7 +639,9 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
 
       this.addSong = function (audioElement) {
         //this.audioPlaylist.push(angular.copy(audioElement));
-        console.log("Hola");
+          audioElement = audioElement.substring(audioElement.indexOf("https://api."), audioElement.indexOf("&auto_play"));
+          $("a#test1").attr("href", audioElement);
+          $("a#test1").trigger("click");
       };
 
       this.removeSong = function (index) {
@@ -801,6 +803,7 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
       var artistTracklistNameVar = [];
       var trackNumberVar;
       var songIndexVar;
+      var songSoundCloudLinkVar;
 
         TracklistSrv.getTracklist($routeParams.title, function (response) {
 
@@ -812,18 +815,19 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
           var songVar = song.track;
           //var parseTitle = songVar.songName.match(/(.*?)\s?-\s?(.*)?$/);
           var artistVar;
-          console.log(songVar);
-          console.log(song);
 
           TracklistSrv.getArtist(songVar.songArtist[0], function(artist){
             artistVar = artist.artistName;
             trackNumberVar = song.trackNumber;
             songIndexVar = song.songIndex;
+            songSoundCloudLinkVar = songVar.songLinks.soundCloudLink;
+            console.log(songSoundCloudLinkVar);
             artistTracklistVar.push({
               songIndex: parseInt(songIndexVar),
               trackNumber: trackNumberVar,
               image: songVar.image,
               src: songVar.url,
+              songSoundCloudLink: songSoundCloudLinkVar,
               url: songVar.url,
               type: songVar.type,
               artist: artistVar,
