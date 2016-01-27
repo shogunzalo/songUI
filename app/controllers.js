@@ -820,7 +820,11 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
             artistVar = artist.artistName;
             trackNumberVar = song.trackNumber;
             songIndexVar = song.songIndex;
-            songSoundCloudLinkVar = songVar.songLinks.soundCloudLink;
+            if(songVar.songLinks){
+                songSoundCloudLinkVar = songVar.songLinks.soundCloudLink;
+            }else{
+                songSoundCloudLinkVar = '';
+            }
             console.log(songSoundCloudLinkVar);
             artistTracklistVar.push({
               songIndex: parseInt(songIndexVar),
