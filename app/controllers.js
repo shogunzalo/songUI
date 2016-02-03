@@ -535,7 +535,7 @@ angular.module("app.ui.ctrls", []).controller("NotifyCtrl", ["$scope", "loggit",
     };
 
     $scope.pageChanged = function () {
-      console.log('Page changed to: ' + $scope.currentPage);
+      //console.log('Page changed to: ' + $scope.currentPage);
     };
 
     $scope.maxSize = 5;
@@ -637,6 +637,11 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
 
       this.userPlaylists = PlayListSrv.playlists;
 
+      this.addSongNoApi = function (audioElement) {
+          $("a#test1").attr("href", audioElement);
+          $("a#test1").trigger("click");
+      };
+
       this.addSong = function (audioElement) {
         //this.audioPlaylist.push(angular.copy(audioElement));
           audioElement = audioElement.substring(audioElement.indexOf("https://api."), audioElement.indexOf("&auto_play"));
@@ -711,7 +716,7 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
 
       //From songApp.js
       searchSong($routeParams.song);
-      console.log($routeParams);
+      //console.log($routeParams);
 
       //$scope.GenresSrv = GenresListingSrv;
       //
@@ -728,7 +733,7 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
       this.TracklistSrv = TracklistSrv;
       var artistPlaylistVar = [],
         artistPlaylistAlbums = [];
-      console.log($routeParams.tracklist);
+      //console.log($routeParams.tracklist);
       if($routeParams.tracklist == "true"){
           this.AlbumList = true;
           this.FullList = false;
@@ -752,7 +757,7 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
       ArtistSrv.getArtist($routeParams.title, function (response) {
 
         //if(typeof response.albums != "undefined"){
-        console.log(response);
+        //console.log(response);
 
         if(true){
 
@@ -801,6 +806,7 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
 
       var artistTracklistVar = [];
       var artistTracklistNameVar = [];
+      var artistTracklistLinksVar = [];
       var trackNumberVar;
       var songIndexVar;
       var songSoundCloudLinkVar;
@@ -808,6 +814,8 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
         TracklistSrv.getTracklist($routeParams.title, function (response) {
 
         artistTracklistNameVar.push(response.tracklistName);
+        console.log(response.tracklistLinks);
+        artistTracklistLinksVar.push(response.tracklistLinks);
 
         _.map(response.tracklistTracks, function (song) {
 
@@ -825,7 +833,7 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
             }else{
                 songSoundCloudLinkVar = '';
             }
-            console.log(songSoundCloudLinkVar);
+            //console.log(songSoundCloudLinkVar);
             artistTracklistVar.push({
               songIndex: parseInt(songIndexVar),
               trackNumber: trackNumberVar,
@@ -846,7 +854,7 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
         });
 
       $scope.artistTracklistName = artistTracklistNameVar;
-
+      $scope.artistTracklistLinks = artistTracklistLinksVar;
       $scope.artistTracklist = artistTracklistVar;
 
       $scope.artistPlaylist = artistPlaylistVar;
@@ -855,7 +863,7 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
 
       this.addSongs = function (playlist, callback) {
 
-        console.log(playlist);
+        //console.log(playlist);
 
         _.each(artistPlaylistVar, function (audioElement) {
           playlist.push(angular.copy(audioElement));
@@ -892,7 +900,6 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
       };
 
       this.toggleAlbumsList = function(){
-        console.log("hola");
         this.AlbumList = true;
         this.FullList = false;
       };

@@ -475,6 +475,8 @@ $(function() {
       return SC.get("/resolve", {
         url: url
       }, function(track) {
+        //Here we have to wipe tracks if we are reproducing the entire tracklist
+        //Also we have to add multiple tracks
         Tracks.add(track);
         return Tracks.play(Tracks.get(track.id));
       });

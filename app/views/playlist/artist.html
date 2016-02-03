@@ -117,7 +117,7 @@
                       {{artistTracklistName}}
                     </h4>
                     <div>
-                      <a class="btn btn-bordered btn-bordered-primary">Save this tracklist</a>
+                      <a class="btn btn-bordered btn-bordered-primary" ng-show="artistTracklistLinks[0].soundCloudLink" ng-click="generalPlaylist.addSongNoApi(artistTracklistLinks[0].soundCloudLink)">Play tracklist</a>
                     </div>
                   </div>
 
@@ -125,7 +125,7 @@
 
                     <div class="music-listing__number">
                       {{ song.trackNumber }}
-                      <div class="play-button">
+                      <div class="play-button" ng-show="song.songSoundCloudLink">
                         <button ng-click="generalPlaylist.addSong(song.songSoundCloudLink)" class="btn btn-primary"><i class="fa fa-play-circle"></i></button>
                       </div>
                     </div>
@@ -179,7 +179,7 @@
 
                   <div class="music-listing__number">
                     {{ $index+1 }}
-                    <div class="play-button">
+                    <div class="play-button" ng-show="song.songSoundCloudLink">
                       <button ng-click="generalPlaylist.addSong(song.songSoundCloudLink)" class="btn btn-primary"><i class="fa fa-play-circle"></i></button>
                     </div>
                   </div>
