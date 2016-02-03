@@ -767,12 +767,16 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
 
             _.map(response.songs, function (song) {
 
+              if(!song.songLinks){
+                song.songLinks = '';
+              }
+
               var parseTitle = song.songName.match(/(.*?)\s?-\s?(.*)?$/);
 
               artistPlaylistVar.push({
                 image: song.image,
                 src: song.url,
-                url: song.url,
+                songSoundCloudLink: song.songLinks.soundCloudLink,
                 type: song.type,
                 artist: response.songArtist,
                 title: song.songName,
