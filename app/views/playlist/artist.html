@@ -32,7 +32,7 @@
     <div class="artist-stats-block">
       <div class="share-artist__buttons">
         <a href="javascript:;" class="btn-icon btn-icon-sm btn-twitter" tooltip-placement="bottom" tooltip="Twitter" tooltip-append-to-body="true"><i class="fa fa-twitter"></i></a>
-        <a href="javascript:;" class="btn-icon btn-icon-sm btn-facebook" tooltip-placement="bottom" tooltip="Facebook" tooltip-append-to-body="true"><i class="fa fa-facebook"></i></a>
+        <a href="{{artistLinks.facebookLink}}" class="btn-icon btn-icon-sm btn-facebook" tooltip-placement="bottom" tooltip="Facebook" tooltip-append-to-body="true"><i class="fa fa-facebook"></i></a>
         <a href="javascript:;" class="btn-icon btn-icon-sm btn-google-plus" tooltip-placement="bottom" tooltip="Google plus" tooltip-append-to-body="true"><i class="fa fa-google-plus"></i></a>
         <a href="javascript:;" class="btn-icon btn-icon-sm btn-pinterest" tooltip-placement="bottom" tooltip="Pinterest" tooltip-append-to-body="true"><i class="fa fa-pinterest"></i></a>
         <a href="javascript:;" class="btn-icon btn-icon-sm btn-instagram" tooltip-placement="bottom" tooltip="Instagram" tooltip-append-to-body="true"><i class="fa fa-instagram"></i></a>
@@ -101,8 +101,8 @@
 
               <div class="music-listing__songs albumlist" data-ng-show="artist.AlbumList">
 
-                <div class="album-wrapper">
-                <!--<div class="album-wrapper" ng-repeat="tracklist in artistTracklist | filter:searchText">-->
+                <!--<div class="album-wrapper">-->
+                <div class="album-wrapper" ng-repeat="tracklist in artistTracklist | filter:searchText">
 
 
                   <div class="album_image">
@@ -114,14 +114,14 @@
                       {{album.album_release}}
                     </p>
                     <h4>
-                      {{artistTracklistName}}
+                      {{tracklist.tracklistName}}
                     </h4>
                     <div>
-                      <a class="btn btn-bordered btn-bordered-primary" ng-show="artistTracklistLinks[0].soundCloudLink" ng-click="generalPlaylist.addSongNoApi(artistTracklistLinks[0].soundCloudLink)">Play tracklist</a>
+                      <a class="btn btn-bordered btn-bordered-primary" ng-show="tracklist.tracklistLinks.soundCloudLink" ng-click="generalPlaylist.addSongNoApi(tracklist.tracklistLinks.soundCloudLink)">Play tracklist</a>
                     </div>
                   </div>
 
-                  <div class="music-listing__row" ng-repeat="song in artistTracklist  | orderBy: 'songIndex' | filter:searchText">
+                  <div class="music-listing__row" ng-repeat="song in tracklist.tracklistTracks  | orderBy: 'songIndex' | filter:searchText">
 
                     <div class="music-listing__number">
                       {{ song.trackNumber }}
@@ -159,11 +159,11 @@
                       </div>
 
                       <div class="music-listing__artist-name">
-                        <a href="#/artist/{{song.artist}}">{{ song.artist }}</a>
+                        <a href="#/songs?song={{ song.title | encodeURIComponent}}">{{ song.title }}</a>
                       </div>
 
                       <div class="music-listing__song-name">
-                          <a href="#/songs?song={{ song.title | encodeURIComponent}}">{{ song.title }}</a>
+                          <a href="#/artist/{{song.artist}}">{{ song.artist }}</a>
                       </div>
 
                     </div>
@@ -213,10 +213,10 @@
                     </div>
 
                     <div class="music-listing__artist-name">
-                      <a href="#/artist/{{song.artist}}">{{ song.artist }}</a>
+                        <a href="#/songs?song={{ song.title | encodeURIComponent}}">{{ song.title }}</a>
                     </div>
                     <div class="music-listing__song-name">
-                        <a href="#/songs?song={{ song.title | encodeURIComponent}}">{{ song.title }}</a>
+                        <a href="#/artist/{{song.artist}}">{{ song.artist }}</a>
                     </div>
 
                   </div>

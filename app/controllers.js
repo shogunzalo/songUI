@@ -757,7 +757,7 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
       ArtistSrv.getArtist($routeParams.title, function (response) {
 
         //if(typeof response.albums != "undefined"){
-        //console.log(response);
+        console.log(response);
 
         if(true){
 
@@ -809,6 +809,7 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
       });
 
       var artistTracklistVar = [];
+        var artistTracklistSongsVar = [];
       var artistTracklistNameVar = [];
       var artistTracklistLinksVar = [];
       var trackNumberVar;
@@ -818,43 +819,46 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
         TracklistSrv.getTracklist($routeParams.title, function (response) {
 
         artistTracklistNameVar.push(response.tracklistName);
-        console.log(response.tracklistLinks);
+        //console.log(response.tracklistLinks);
         artistTracklistLinksVar.push(response.tracklistLinks);
 
-        _.map(response.tracklistTracks, function (song) {
+            _.map(response, function(myVarTracklist){
+                _.map(myVarTracklist.tracklistTracks, function (song) {
+                  //var indexVar = indexVar;
+                  var songVar = song.track;
+                  //var parseTitle = songVar.songName.match(/(.*?)\s?-\s?(.*)?$/);
+                  var artistVar;
+                    myVarTracklist.tracklistTracks = [];
 
-          //var indexVar = indexVar;
-          var songVar = song.track;
-          //var parseTitle = songVar.songName.match(/(.*?)\s?-\s?(.*)?$/);
-          var artistVar;
+                  TracklistSrv.getArtist(songVar.songArtist[0], function(artist){
+                    artistVar = artist.artistName;
+                    trackNumberVar = song.trackNumber;
+                    songIndexVar = song.songIndex;
+                    if(songVar.songLinks){
+                        songSoundCloudLinkVar = songVar.songLinks.soundCloudLink;
+                    }else{
+                        songSoundCloudLinkVar = '';
+                    }
+                    //console.log(songSoundCloudLinkVar);
+                      myVarTracklist.tracklistTracks.push({
+                      songIndex: parseInt(songIndexVar),
+                      trackNumber: trackNumberVar,
+                      image: songVar.image,
+                      src: songVar.url,
+                      songSoundCloudLink: songSoundCloudLinkVar,
+                      url: songVar.url,
+                      type: songVar.type,
+                      artist: artistVar,
+                      title: songVar.songName,
+                      displayName: songVar.songName
 
-          TracklistSrv.getArtist(songVar.songArtist[0], function(artist){
-            artistVar = artist.artistName;
-            trackNumberVar = song.trackNumber;
-            songIndexVar = song.songIndex;
-            if(songVar.songLinks){
-                songSoundCloudLinkVar = songVar.songLinks.soundCloudLink;
-            }else{
-                songSoundCloudLinkVar = '';
-            }
-            //console.log(songSoundCloudLinkVar);
-            artistTracklistVar.push({
-              songIndex: parseInt(songIndexVar),
-              trackNumber: trackNumberVar,
-              image: songVar.image,
-              src: songVar.url,
-              songSoundCloudLink: songSoundCloudLinkVar,
-              url: songVar.url,
-              type: songVar.type,
-              artist: artistVar,
-              title: songVar.songName,
-              displayName: songVar.songName
+                    });
+                  });
 
+                });
+                artistTracklistVar.push(myVarTracklist);
+                artistTracklistSongsVar = [];
             });
-          });
-
-        });
-
         });
 
       $scope.artistTracklistName = artistTracklistNameVar;

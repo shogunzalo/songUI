@@ -2,12 +2,34 @@ var isEncoded = function(str){
     return decodeURIComponent(str) !== str;
 }
 
+var baseUrl = 'http://localhost:3000/';
+var artistLookupUrl = baseUrl + 'artistById/';
+
+function getArtistName(artist, cb){
+    //Ajax call
+    //If null/empty or doesnt exists return false
+    $.ajax({
+        url: artistLookupUrl + encodeURIComponent(artist[0]),
+        async: false
+    }).then(function(data){
+        cb(data.artistName);
+    });
+}
+
 Handlebars.registerHelper('autoPlayFalseSoundCLoud', function(params) {
     return params.replace("&auto_play=true", "&auto_play=false");
 });
 
 Handlebars.registerHelper('autoPlayFalseYoutube', function(params) {
     return params.replace("&autoplay=1", "&autoplay=0");
+});
+
+Handlebars.registerHelper('getArtistName', function(value) {
+    var artistNameVar
+    getArtistName(value, function(val){
+        artistNameVar = val;
+    });
+    return artistNameVar;
 });
 
 Handlebars.registerHelper('ifCond', function(v1, options) {

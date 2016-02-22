@@ -176,7 +176,7 @@
                     <p>{{comments}}</p>
                     {{/recommendations}}
                     {{#seenIn}}
-                    Seen in: <a href="/tracklistInfo?{{this.tracklistName}}">{{this.tracklistName}}</a>
+                    Seen in: <a href="/#/artist/{{getArtistName this.tracklistArtist}}?tracklist=true">{{this.tracklistName}}</a>
                     {{/seenIn}}
                 </div>
                 {{#ifCond nextSong.songLinks.youtubeLink.length}}

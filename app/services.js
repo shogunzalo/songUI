@@ -156,13 +156,15 @@ angular.module("app.ui.services", []).factory("loggit", [
           artistId = data[0]._id;
 
           TracklistObj.getTracklistSongs(artistId, function(data){
-
-            _.map(TracklistObj.tracklists, function(tracklistsSongs){
-
-              console.log(tracklistsSongs);
-              return callback(tracklistsSongs);
-
-            });
+              //console.log(TracklistObj.tracklists);
+              return callback(TracklistObj.tracklists);
+            //_.map(TracklistObj.tracklists, function(tracklistsSongs){
+            //
+            //  //console.log(tracklistsSongs);
+            //  //It's called 2 times
+            //  return callback(tracklistsSongs);
+            //
+            //});
 
           });
 
