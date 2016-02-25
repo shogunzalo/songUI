@@ -1,12 +1,12 @@
 <div data-ng-controller="ArtistCtrl as artist">
 
   <!--<div class="artist-banner" data-ng-show="artistBanner" style="background-image:url({{artistBanner}});">-->
-  <div class="artist-banner" data-ng-show="true" style="background-image:url(http://localhost:3000/imageName/{{artistName}});">
+  <div class="artist-banner" data-ng-show="true" style="background-image:url({{baseUrl}}imageName/{{artistName}});">
   <div class="artist-inner">
 
       <div class="artist-img" data-ng-show="true">
         <!--<img ng-src="{{artistImage}}" class="img-circle img-polaroid"/>-->
-        <img ng-src="http://localhost:3000/imageName/{{artistName}}" class="img-circle img-polaroid"/>
+        <img ng-src="{{baseUrl}}imageName/{{artistName}}" class="img-circle img-polaroid"/>
 
       </div>
 
@@ -106,7 +106,7 @@
 
 
                   <div class="album_image">
-                    <img ng-src="http://localhost:3000/imageName/{{artistName}}" alt="album image"/>
+                    <img ng-src="{{baseUrl}}imageName/{{artistName}}" alt="album image"/>
                   </div>
 
                   <div class="album_name">
@@ -209,7 +209,7 @@
                   <div class="music-listing__name">
 
                     <div class="music-listing__thumbnail">
-                      <img ng-src="http://localhost:3000/imageName/{{artistName}}" alt="song__image"/>
+                      <img ng-src="{{baseUrl}}imageName/{{artistName}}" alt="song__image"/>
                     </div>
 
                     <div class="music-listing__artist-name">

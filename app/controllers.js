@@ -713,22 +713,21 @@ angular.module('app.music', ['mediaPlayer','ngDragDrop'])
 
     }]).controller('GenresCtrl',['$scope', '$routeParams',
       function($scope, $routeParams){
+          $scope.baseUrl = constants.baseUrl;
+          //From songApp.js
+          searchSong($routeParams.song);
+          //console.log($routeParams);
 
-      //From songApp.js
-      searchSong($routeParams.song);
-      //console.log($routeParams);
-
-      //$scope.GenresSrv = GenresListingSrv;
-      //
-      //GenresListingSrv.getGenres(function(data){
-      //  // no need to read data because its binded to $scope.GenresSrv
-      //  // You can however process something only after the data comes back
-      //});
-
-
+          //$scope.GenresSrv = GenresListingSrv;
+          //
+          //GenresListingSrv.getGenres(function(data){
+          //  // no need to read data because its binded to $scope.GenresSrv
+          //  // You can however process something only after the data comes back
+          //});
     }]).controller('ArtistCtrl', ['$scope','$routeParams', 'ArtistSrv','TracklistSrv','PlayListSrv', 'navigationMenuService','loggit',
     function ($scope,$routeParams, ArtistSrv, TracklistSrv, PlayListSrv, navigationMenuService,loggit) {
 
+      $scope.baseUrl = constants.baseUrl;
       this.ArtistSrv = ArtistSrv;
       this.TracklistSrv = TracklistSrv;
       var artistPlaylistVar = [],

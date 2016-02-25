@@ -46,7 +46,7 @@ angular.module("app.ui.services", []).factory("loggit", [
 
     ArtistListingObj.getArtists = function(callback){
 
-      $http.get('http://localhost:3000/artist').success(function(data) {
+      $http.get(constants.baseUrl + 'artist').success(function(data) {
 
         artists = data;
 
@@ -75,7 +75,7 @@ angular.module("app.ui.services", []).factory("loggit", [
 
     AlbumListingObj.getAlbums = function(callback){
 
-      $http.get('http://localhost:3000/tracklists').success(function(data) {
+      $http.get(constants.baseUrl + 'tracklists').success(function(data) {
 
         albums = data;
 
@@ -105,7 +105,7 @@ angular.module("app.ui.services", []).factory("loggit", [
 
     GenresListingObj.getGenres = function(callback){
 
-      $http.get('http://localhost:3000/genres').success(function(data) {
+      $http.get(constants.baseUrl + 'genres').success(function(data) {
 
         genres = data;
 
@@ -135,7 +135,7 @@ angular.module("app.ui.services", []).factory("loggit", [
 
       TracklistObj.getTracklistSongs = function(artistId, callback){
 
-        $http.get('http://localhost:3000/tracklistByArtist/' + artistId).success(function(data) {
+        $http.get(constants.baseUrl + 'tracklistByArtist/' + artistId).success(function(data) {
 
           tracklists = data;
 
@@ -151,7 +151,7 @@ angular.module("app.ui.services", []).factory("loggit", [
         //Title is the artist name
         var artistId;
 
-        $http.get('http://localhost:3000/artistName/' + artistId).success(function(data) {
+        $http.get(constants.baseUrl + 'artistName/' + artistId).success(function(data) {
 
           artistId = data[0]._id;
 
@@ -174,7 +174,7 @@ angular.module("app.ui.services", []).factory("loggit", [
 
       TracklistObj.getArtist = function(title, callback) {
 
-        $http.get('http://localhost:3000/artistById/' + title).success(function(data) {
+        $http.get(constants.baseUrl + 'artistById/' + title).success(function(data) {
           return callback(data);
         });
 
@@ -198,7 +198,7 @@ angular.module("app.ui.services", []).factory("loggit", [
 
     PlayListObj.getSongs = function(artistId, callback){
 
-      $http.get('http://localhost:3000/artistSongs/' + artistId).success(function(data) {
+      $http.get(constants.baseUrl + 'artistSongs/' + artistId).success(function(data) {
 
         artists = data;
 
@@ -214,7 +214,7 @@ angular.module("app.ui.services", []).factory("loggit", [
       //Title is the artist name
       var artistIdVar;
 
-      $http.get('http://localhost:3000/artistName/' + title).success(function(data) {
+      $http.get(constants.baseUrl + 'artistName/' + title).success(function(data) {
 
         artistIdVar = data[0]._id;
 
@@ -250,7 +250,7 @@ angular.module("app.ui.services", []).factory("loggit", [
 
       PlayListObj.getSongs = function(songName, callback){
 
-        $http.get('http://localhost:3000/songName/' + songName).success(function(data) {
+        $http.get(constants.baseUrl + 'songName/' + songName).success(function(data) {
 
             SongObj = data;
 
@@ -263,7 +263,7 @@ angular.module("app.ui.services", []).factory("loggit", [
       //  //Title is the artist name
       //  var artistIdVar;
       //
-      //  $http.get('http://localhost:3000/artistName/' + title).success(function(data) {
+      //  $http.get(constants.baseUrl + 'artistName/' + title).success(function(data) {
       //
       //    artistIdVar = data[0]._id;
       //

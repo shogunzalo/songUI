@@ -109,7 +109,7 @@
 
         <div class="row">
             {{#songArtist}}
-            <img src="http://localhost:3000/imageName/{{artistName}}" width="64" height="64" class="img-thumbnail pull-left">
+            <img src="{{baseUrl}}imageName/{{artistName}}" width="64" height="64" class="img-thumbnail pull-left">
             {{/songArtist}}
             <div class="media-body col-md-8">
                 <div class="well well-lg">
@@ -153,7 +153,7 @@
         {{#songMixs}}
         <div id="songMatch0" class="row">
             {{#nextSong.songArtist}}
-            <img src="http://localhost:3000/imageName/{{artistName}}" width="64" height="64" class="img-thumbnail pull-left">
+            <img src="{{baseUrl}}imageName/{{artistName}}" width="64" height="64" class="img-thumbnail pull-left">
             {{/nextSong.songArtist}}
             <div id="songMatchSearchedDetails0" class="media-body col-md-8">
                 <div id="songMatchSearchedDetailsDiv0" class="well well-lg">

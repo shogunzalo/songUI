@@ -2,8 +2,8 @@ var isEncoded = function(str){
     return decodeURIComponent(str) !== str;
 }
 
-var baseUrl = 'http://localhost:3000/';
-var artistLookupUrl = baseUrl + 'artistById/';
+//var baseUrl = 'http://localhost:3000/';
+var artistLookupUrl = constants.baseUrl + 'artistById/';
 
 function getArtistName(artist, cb){
     //Ajax call
