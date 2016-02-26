@@ -3,7 +3,7 @@ var isEncoded = function(str){
 }
 
 //var baseUrl = 'http://localhost:3000/';
-var artistLookupUrl = constants.baseUrl + 'artistById/';
+var artistLookupUrl = "api.whomixed.com/" + 'artistById/';
 
 function getArtistName(artist, cb){
     //Ajax call
