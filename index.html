@@ -1,185 +1,279 @@
-<!doctype html>
+<!DOCTYPE html>
 <!--[if gt IE 8]><!-->
-<html class="no-js"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>WhoMixed</title>
-  <meta name="description" content="Www.WhoMixed.coM">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>WhoMixed</title>
+    <meta name="description" content="Www.WhoMixed.coM" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
 
-  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,700,600,400'
-        rel='stylesheet' type='text/css'>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link
+      href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,700,600,400"
+      rel="stylesheet"
+      type="text/css"
+    />
 
-  <!-- Include Jquery in the vendor folder -->
-  <script src="dist/js/jquery.min.js"></script>
+    <!-- Include Jquery in the vendor folder -->
+    <script src="dist/js/jquery.min.js"></script>
 
-  <!-- Theme's own CSS file -->
-  <link rel="stylesheet" href="dist/css/font-awesome.min.css">
-  <link rel="stylesheet" href="dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="dist/css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="dist/css/main.css">
-  <link rel="stylesheet" href="styles/app.css">
+    <!-- Theme's own CSS file -->
+    <link rel="stylesheet" href="dist/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="dist/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="dist/css/main.css" />
+    <link rel="stylesheet" href="styles/app.css" />
+  </head>
+  <noscript>
+    <meta http-equiv="Refresh" content="0;URL=no-js.html" />
+  </noscript>
+  <body
+    data-ng-app="app"
+    id="app"
+    data-custom-background=""
+    data-off-canvas-nav=""
+    data-ng-controller="AdminAppCtrl"
+  >
+    <div class="" data-ng-controller="PlayListCtrl as generalPlaylist">
+      <audio
+        media-player="mediaPlayer"
+        playlist="generalPlaylist.audioPlaylist"
+      ></audio>
 
-</head>
-<noscript>
-  <META HTTP-EQUIV="Refresh" CONTENT="0;URL=no-js.html">
-</noscript>
-<body data-ng-app="app" id="app" data-custom-background="" data-off-canvas-nav="" data-ng-controller="AdminAppCtrl">
+      <div data-ng-hide="checkIfOwnPage()" data-ng-cloak="" class="no-print">
+        <aside
+          data-ng-include=" 'app/views/navigation.html' "
+          id="nav-container"
+        ></aside>
+      </div>
 
-<div class="" data-ng-controller="PlayListCtrl as generalPlaylist">
+      <div class="view-container">
+        <div data-ng-hide="checkIfOwnPage()" data-ng-cloak="" class="no-print">
+          <section
+            data-ng-include=" 'app/views/header.html' "
+            id="header"
+            class="top-header"
+          ></section>
+        </div>
+        <section
+          data-ng-view=""
+          id="content"
+          class="animate-fade-up"
+          ng-class="{fixed:checkIfFixedPage()}"
+        ></section>
+      </div>
 
-  <audio media-player="mediaPlayer" playlist="generalPlaylist.audioPlaylist"></audio>
-
-  <div data-ng-hide="checkIfOwnPage()" data-ng-cloak="" class="no-print">
-    <aside data-ng-include=" 'app/views/navigation.html' " id="nav-container"></aside>
-  </div>
-
-  <div class="view-container">
-
-    <div data-ng-hide="checkIfOwnPage()" data-ng-cloak="" class="no-print">
-      <section data-ng-include=" 'app/views/header.html' " id="header" class="top-header"></section>
-    </div>
-    <section data-ng-view="" id="content" class="animate-fade-up" ng-class="{fixed:checkIfFixedPage()}"></section>
-  </div>
-
-  <div class="player-region" ng-show="mediaPlayer.currentTrack">
-    <div>
-
-      <div class="player-control">
-
-        <div class="player-control-bottom">
-
-          <div class="controlling-options">
-            <div class="btn" ng-click="mediaPlayer.prev()">
-              <i class="fa fa-step-backward"></i>
-            </div>
-            <div class="btn" ng-click="mediaPlayer.playPause()">
-              <i class="fa" ng-class="{ 'fa-pause': mediaPlayer.playing, 'fa-play': !mediaPlayer.playing }"></i>
-            </div>
-            <div class="btn" ng-click="mediaPlayer.next()">
-              <i class="fa fa-step-forward"></i>
-            </div>
-            <!--<div class="btn btn-noclick">
+      <div class="player-region" ng-show="mediaPlayer.currentTrack">
+        <div>
+          <div class="player-control">
+            <div class="player-control-bottom">
+              <div class="controlling-options">
+                <div class="btn" ng-click="mediaPlayer.prev()">
+                  <i class="fa fa-step-backward"></i>
+                </div>
+                <div class="btn" ng-click="mediaPlayer.playPause()">
+                  <i
+                    class="fa"
+                    ng-class="{ 'fa-pause': mediaPlayer.playing, 'fa-play': !mediaPlayer.playing }"
+                  ></i>
+                </div>
+                <div class="btn" ng-click="mediaPlayer.next()">
+                  <i class="fa fa-step-forward"></i>
+                </div>
+                <!--<div class="btn btn-noclick">
               <span>currentTrack: <span class="badge">{{ mediaPlayer.currentTrack }}</span></span>
             </div>-->
-            <!--<div class="btn btn-noclick">
+                <!--<div class="btn btn-noclick">
               <span><i class="fa fa-clock-o"></i>: <span class="badge">{{ mediaPlayer.formatTime }}</span></span>
             </div>-->
-            <div class="btn btn-noclick">
-              <span><span class="badge">{{ mediaPlayer.volume * 100 | number:0 }}%</span></span>
-            </div>
-            <div class="btn" ng-click="mediaPlayer.setVolume(mediaPlayer.volume - 0.1)">
-              <span><i class="fa fa-volume-down"></i></span>
-            </div>
-            <div class="btn" ng-click="mediaPlayer.setVolume(mediaPlayer.volume + 0.1)">
-              <span><i class="fa fa-volume-up"></i></span>
+                <div class="btn btn-noclick">
+                  <span
+                    ><span class="badge"
+                      >{{ mediaPlayer.volume * 100 | number:0 }}%</span
+                    ></span
+                  >
+                </div>
+                <div
+                  class="btn"
+                  ng-click="mediaPlayer.setVolume(mediaPlayer.volume - 0.1)"
+                >
+                  <span><i class="fa fa-volume-down"></i></span>
+                </div>
+                <div
+                  class="btn"
+                  ng-click="mediaPlayer.setVolume(mediaPlayer.volume + 0.1)"
+                >
+                  <span><i class="fa fa-volume-up"></i></span>
+                </div>
+              </div>
+
+              <div class="song-duration">
+                <span class="song-duration-beg"
+                  >{{ mediaPlayer.formatTime }}</span
+                >
+                <div
+                  class="progress"
+                  ng-click="mediaPlayer.seek(mediaPlayer.duration * generalPlaylist.seekPercentage($event))"
+                >
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    ng-style="{ width: mediaPlayer.currentTime*100/mediaPlayer.duration + '%' }"
+                  ></div>
+                </div>
+                <span class="song-duration-end"
+                  >{{ mediaPlayer.formatDuration }}</span
+                >
+              </div>
             </div>
           </div>
-
-          <div class="song-duration">
-            <span class="song-duration-beg">{{ mediaPlayer.formatTime }}</span>
-            <div class="progress" ng-click="mediaPlayer.seek(mediaPlayer.duration * generalPlaylist.seekPercentage($event))">
-              <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{ width: mediaPlayer.currentTime*100/mediaPlayer.duration + '%' }"></div>
-            </div>
-            <span class="song-duration-end">{{ mediaPlayer.formatDuration }}</span>
-          </div>
-
         </div>
-
-      </div>
-
-    </div>
-
-  </div>
-</div>
-
-<div class="page-loading-overlay">
-  <div class="loader-2"></div>
-</div>
-
-<div class="load_circle_wrapper">
-
-  <div class="loading_spinner">
-    <div id="wrap_spinner">
-      <div class="loading outer">
-        <div class="loading inner"></div>
       </div>
     </div>
-  </div>
-</div>
 
-<!--Uncomment for deployment using Grunt-->
-<!--<script type="text/javascript" src="dist/js/app.js"></script>-->
+    <div class="page-loading-overlay">
+      <div class="loader-2"></div>
+    </div>
 
-<!--Uncomment for deployment without Grunt-->
+    <div class="load_circle_wrapper">
+      <div class="loading_spinner">
+        <div id="wrap_spinner">
+          <div class="loading outer">
+            <div class="loading inner"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="scripts/gmap.js"></script>
-<script type="text/javascript" src="bower_components/slimScroll/jquery.slimscroll.min.js"></script>
-<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-<script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>
-<script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
-<script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-<script type="text/javascript" src="bower_components/angular-wizard/dist/angular-wizard.min.js"></script>
-<script type="text/javascript" src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
-<script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-<script type="text/javascript" src="bower_components/angular-media-player/dist/angular-media-player.min.js"></script>
-<script type="text/javascript" src="bower_components/underscore/underscore-min.js"></script>
-<script type="text/javascript" src="bower_components/jqvmap/jqvmap/jquery.vmap.min.js"></script>
-<script type="text/javascript" src="bower_components/html5shiv/dist/html5shiv.min.js"></script>
-<script type="text/javascript" src="scripts/angular-dragdrop.js"></script>
-<script type="text/javascript" src="scripts/extras.js"></script>
-<script type="text/javascript" src="app/app.js"></script>
-<!--<script type="text/javascript" src="app/jquery.min.js"></script>-->
-<script type="text/javascript" src="app/jquery-1.7.2.js"></script>
-<script src="//connect.soundcloud.com/sdk.js"></script>
-<script type="text/javascript" src="app/stratus.js"></script>
-<script type="text/javascript" src="app/handlebars.js"></script>
-<script type="text/javascript" src="app/typeahead.js"></script>
-<script type="text/javascript" src="app/app.js"></script>
-<script type="text/javascript" src="app/config.js"></script>
-<script type="text/javascript" src="app/controllers.js"></script>
-<script type="text/javascript" src="app/directives.js"></script>
-<script type="text/javascript" src="app/services.js"></script>
-<script type="text/javascript" src="app/songApp.js"></script>
-<!--<script type="text/javascript" src="app/prod.js"></script>-->
-<script type="text/javascript" src="app/dev.js"></script>
+    <!--Uncomment for deployment using Grunt-->
+    <!--<script type="text/javascript" src="dist/js/app.js"></script>-->
 
-<a id="test1" class="stratus" href="" style="visibility: hidden"></a>
+    <!--Uncomment for deployment without Grunt-->
 
-<script>
-    SC.initialize({
-        client_id: "1cbeea56d857430caccee966682cf238"
-    });
+    <script
+      type="text/javascript"
+      src="bower_components/bootstrap/dist/js/bootstrap.min.js"
+    ></script>
+    <script type="text/javascript" src="scripts/gmap.js"></script>
+    <script
+      type="text/javascript"
+      src="bower_components/slimScroll/jquery.slimscroll.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="bower_components/angular/angular.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="bower_components/angular-animate/angular-animate.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="bower_components/angular-route/angular-route.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="bower_components/angular-sanitize/angular-sanitize.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="bower_components/angular-wizard/dist/angular-wizard.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="bower_components/angular-media-player/dist/angular-media-player.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="bower_components/underscore/underscore-min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="bower_components/jqvmap/dist/jquery.vmap.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="bower_components/html5shiv/dist/html5shiv.min.js"
+    ></script>
+    <script type="text/javascript" src="scripts/angular-dragdrop.js"></script>
+    <script type="text/javascript" src="scripts/extras.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>
+    <!--<script type="text/javascript" src="app/jquery.min.js"></script>-->
+    <script type="text/javascript" src="app/jquery-1.7.2.js"></script>
+    <script src="//connect.soundcloud.com/sdk.js"></script>
+    <script type="text/javascript" src="app/stratus.js"></script>
+    <script type="text/javascript" src="app/handlebars.js"></script>
+    <script type="text/javascript" src="app/typeahead.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>
+    <script type="text/javascript" src="app/config.js"></script>
+    <script type="text/javascript" src="app/controllers.js"></script>
+    <script type="text/javascript" src="app/directives.js"></script>
+    <script type="text/javascript" src="app/services.js"></script>
+    <script type="text/javascript" src="app/songApp.js"></script>
+    <!--<script type="text/javascript" src="app/prod.js"></script>-->
+    <script type="text/javascript" src="app/dev.js"></script>
 
-    $.stratus({
-        links: 'https://api.soundcloud.com/tracks/183406755',
-        env: 'development'
-    });
+    <a id="test1" class="stratus" href="" style="visibility: hidden"></a>
 
-    function playSong(trackToStream){
+    <script>
+      SC.initialize({
+        client_id: "1cbeea56d857430caccee966682cf238",
+      });
+
+      $.stratus({
+        links: "https://api.soundcloud.com/tracks/183406755",
+        env: "development",
+      });
+
+      function playSong(trackToStream) {
         $("a#test1").attr("href", trackToStream);
         $("a#test1").trigger("click");
-    }
+      }
 
-    <!--Ugly workaround to define names at the very beginning-->
-    defineNames();
-    defineArtists();
-    defineTracklists();
-</script>
+      <!--Ugly workaround to define names at the very beginning-->
+      defineNames();
+      defineArtists();
+      defineTracklists();
+    </script>
 
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i["GoogleAnalyticsObject"] = r;
+        (i[r] =
+          i[r] ||
+          function () {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(
+        window,
+        document,
+        "script",
+        "//www.google-analytics.com/analytics.js",
+        "ga"
+      );
 
-    ga('create', 'UA-73054011-1', 'auto');
-    ga('send', 'pageview');
-
-</script>
-
-</body>
+      ga("create", "UA-73054011-1", "auto");
+      ga("send", "pageview");
+    </script>
+  </body>
 </html>

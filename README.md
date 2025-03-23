@@ -1,6 +1,6 @@
 <h3>An angular js admin app.</h3>
 
-Uses several charing libraries including : 
+Uses several charing libraries including :
 
 Chartjs<br/>
 Flotcharts<br/>
@@ -27,7 +27,6 @@ grunt-html2js
 grunt-contrib-watch
 grunt-bower-task
 
-
 3 ) In the application root folder run : npm install
 
 This will install all grunt dependencies so that tasks can be run
@@ -42,5 +41,18 @@ All files will be concatenated in the dist/app.js file
 
 Website will be deployed on http://localhost:8080 (path can be configured in the Gruntfile.js)
 
+---
 
+Update 2024
 
+To create dist:
+
+npm install -g grunt-cli
+
+npm install
+
+grunt copy
+
+grunt dev
+
+grunt bower
